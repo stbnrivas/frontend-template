@@ -15,11 +15,12 @@ namespace :build do
         #   -o output folder
     end
     task :css do
-        # sh "sass src\scss\app.scss:dist\css\app.css --style watch"
-        # sh "sass src\scss\app.scss:dist\css\app.css --style nested"
-        sh "sass src\scss\app.scss:dist\css\app.css --style compact"
-        # sh "sass src\scss\app.scss:dist\css\app.css --style expanded"
-        # sh "sass src\scss\app.scss:dist\css\app.css --style compressed"
+        sh 'cp vendor/Font-Awesome/web-fonts-with-css/webfonts/* dist/fonts/'
+        # sh 'sass src\scss\app.scss:dist\css\app.css --style watch'
+        # sh 'sass src\scss\app.scss:dist\css\app.css --style nested'
+        sh 'sass src\scss\app.scss:dist\css\app.css --style compact'
+        # sh 'sass src\scss\app.scss:dist\css\app.css --style expanded'
+        # sh 'sass src\scss\app.scss:dist\css\app.css --style compressed'
     end
     task :watch do
     end

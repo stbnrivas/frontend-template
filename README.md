@@ -60,3 +60,10 @@ add a task into Rakefile
         # sh "sass src\scss\app.scss:dist\css\app.css --style compressed"
     end
 ```
+
+## build css and copy the fonts files of font-awesome
+
+```bash
+cd vendor
+git submodule add https://github.com/FortAwesome/Font-Awesome
+```
