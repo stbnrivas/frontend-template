@@ -53,11 +53,7 @@ add a task into Rakefile
 
 ```Rakefile
     task :css do
-        # sh "sass src\scss\app.scss:dist\css\app.css --style watch"
-        # sh "sass src\scss\app.scss:dist\css\app.css --style nested"
         sh "sass src\scss\app.scss:dist\css\app.css --style compact"
-        # sh "sass src\scss\app.scss:dist\css\app.css --style expanded"
-        # sh "sass src\scss\app.scss:dist\css\app.css --style compressed"
     end
 ```
 
@@ -66,4 +62,68 @@ add a task into Rakefile
 ```bash
 cd vendor
 git submodule add https://github.com/FortAwesome/Font-Awesome
+```
+
+copy the font from git submodule 
+
+```Rakefile
+    task :css do
+        sh 'cp vendor/Font-Awesome/web-fonts-with-css/webfonts/* dist/fonts/'
+        sh 'sass src\scss\app.scss:dist\css\app.css --style compact'
+    end
+```
+
+## build js *(bootstrap) using webpack as submodule fail
+
+bootstrap has two dependences: JQuery and popper.js
+
+
+
+
+```bash
+npm init
+npm install webpack webpack-cli webpack-dev-server --save-dev
+
+npm install jquery popper.js bootstrap
+
+cd vendor
+git submodule add https://github.com/jquery/jquery
+cd vendor/jquery/
+npm run build
+# generate jquery.js jquery.min.js
+git submodule add https://github.com/FezVrasta/popper.js
+```
+
+add to src/js/app.js
+
+```javascript
+/* into src/js/app.js */
+require('../../vendor/jquery/dist/jquery.min.js')
+require('../../vendor/popper.min.js')
+require('../../vendor/bootstrap/dist/js/bootstrap.min.js')
+``` 
+
+create a config file to webpack
+
+```bash
+mkdir config
+npm init -y
+touch src/js/app.js
+echo 'alert("hello world compilation from webpack")' >> src/js/app.js
+touch config/webpack.dev.js
+```
+
+```javascript
+const path=require("path")
+
+module.exports = {
+    mode: "development",
+    entry:{
+        app: "./src/js/app.js"
+    },
+    output:{
+        filename: "[name]-bundle.js",
+        path: path.resolve(__dirname,"../dist/js")
+    },
+}
 ```

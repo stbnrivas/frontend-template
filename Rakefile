@@ -8,9 +8,9 @@ end
 
 
 namespace :build do
-    # https://code.google.com/archive/p/htmlcompressor/
-    # java -jar htmlcompressor.jar --type html -o /to/ /from/
     task :html do
+        # https://code.google.com/archive/p/htmlcompressor/
+        # java -jar htmlcompressor.jar --type html -o /to/ /from/
         sh "java -jar vendor/htmlcompressor-1.5.3.jar --type html src/*.html -o dist/"
         #   -o output folder
     end
@@ -22,7 +22,13 @@ namespace :build do
         # sh 'sass src\scss\app.scss:dist\css\app.css --style expanded'
         # sh 'sass src\scss\app.scss:dist\css\app.css --style compressed'
     end
+    task :js do
+        sh 'webpack --config=config/webpack.dev.js'
+    end
+
     task :watch do
+    end
+    task :clean do
     end
 end
 
