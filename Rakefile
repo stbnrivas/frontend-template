@@ -3,7 +3,9 @@ task :default => [:show]
 task :show do
     puts 'build:html'
     puts 'build:scss'
-    puts 'build:webpack'
+    puts 'build:js'
+    puts 'build:all'
+    
 end
 
 
@@ -25,7 +27,9 @@ namespace :build do
     task :js do
         sh 'webpack --config=config/webpack.dev.js'
     end
-
+    task :all => ["html", "css", "js"] do
+    end
+    
     task :watch do
     end
     task :clean do
